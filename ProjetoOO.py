@@ -273,7 +273,7 @@ class Plataforma:
     
     def gerenciar_jogos_admin(self):
         while True:
-            print("\n    Gerenciamento de Jogos")
+            print("\n    Gerenciamento de Jogos\n")
             print("1 - Adicionar jogo")
             print("2 - Adicionar item a um jogo")
             print("3 - Voltar")
@@ -289,13 +289,13 @@ class Plataforma:
                 except ValueError:
                     print("Preço inválido.")
                     continue
-                tipo = input("Jogo é (1) Online ou (2) Offline? ")
+                tipo = input("\nJogo é (1) Online ou (2) Offline? ")
                 if tipo == '1': self.jogos[nome_jogo] = JogoOnline(nome_jogo, preco_jogo)
                 elif tipo == '2': self.jogos[nome_jogo] = JogoOffline(nome_jogo, preco_jogo)
                 else: 
                     print("Tipo inválido. Jogo não criado.")
                     continue
-                print("Jogo adicionado!")
+                print("\nJogo adicionado!")
             elif escolha == '2':
                 nome_jogo = input("Adicionar item em qual jogo? ")
                 if nome_jogo not in self.jogos:
@@ -331,29 +331,32 @@ class Plataforma:
             escolha = input("> ")
 
             if escolha == '1':
+            
                 
                 print("\n    Loja de Jogos Disponíveis")
 
                 jogos_a_venda = {}
-
-                for nome, jogo in self.jogos.items():  
+            
+                for nome, jogo in self.jogos.items():
                     if nome not in usuario.jogos_adquiridos:
                         jogos_a_venda[nome] = jogo
 
                 if not jogos_a_venda:
                     print("Você já possui todos os jogos da plataforma!")
-                
                 else:
+                  
                     for nome, jogo in jogos_a_venda.items():
                         print(f"- {nome} | Preço: {jogo.preco}")
                     
                     jogo_a_comprar = input("Digite o nome do jogo que deseja comprar (ou enter para voltar): ")
 
                     if jogo_a_comprar in jogos_a_venda:
+                       
                         usuario.comprar_jogo(jogos_a_venda[jogo_a_comprar])
                     elif jogo_a_comprar:
+
                         print("Jogo não encontrado na loja.")
-            
+        
             elif escolha == '2':
                 print("\n    Sua Biblioteca de Jogos")
                 if not usuario.jogos_adquiridos:
@@ -424,7 +427,7 @@ class Plataforma:
                     dependente_aprovado = pendentes[escolha-1]
                     dependente_aprovado.status_aprovacao = 'aprovado'
                     print(f"Conta de {dependente_aprovado.nome} aprovada!")
-                    self.definir_permissoes(dependente_aprovado)
+                    usuario_adulto.definir_permissoes(dependente_aprovado)
             except ValueError:
                 print("Entrada inválida.")
         else:
@@ -433,44 +436,36 @@ class Plataforma:
 # =================================================================================
 plataforma_gaming = Plataforma()
 
-  
 print("    Configurando dados")
-    
-print("\nAdicionando jogos ao catálogo...")
+print("\n...")
+
 jogo1 = JogoOnline("Aventuras_em_POO", POOCoin(100.0))
 jogo2 = JogoOffline("Semestre_Rush", POOCoin(50.0))
 plataforma_gaming.jogos[jogo1.nome] = jogo1
 plataforma_gaming.jogos[jogo2.nome] = jogo2
 
 jogo1.loja['Ponto_Extra'] = POOCoin(10.0)
-jogo1.postar_no_forum("Não sei programar em Python! :(")
-
+jogo1.postar_no_forum("lucas", "Não sei programar em Python! :(")
 
 luu = UsuarioAdulto("luu", "luu@ic.com", "luu123", 30)
-rafael = UsuarioInfantil("rafael", "rafael@ic.com", "rafael123", 12, "luu@email.com")
-maria = UsuarioInfantil("maria", "maria@email.com", "maria123", 10, "luu@email.com")
+rafael = UsuarioInfantil("rafael", "rafael@email.com", "rafael123", 12, "luu@ic.com")
+maria = UsuarioInfantil("maria", "maria@email.com", "maria123", 10, "luu@ic.com")
 plataforma_gaming.usuarios.update({luu.nome: luu, rafael.nome: rafael, maria.nome: maria})
 
 luu.adicionar_saldo(POOCoin(250))
 rafael.adicionar_saldo(POOCoin(75))
-    
+
 rafael.status_aprovacao = 'aprovado'
 rafael.permissoes['pode_comprar_itens'] = True
-rafael.permissoes['pode_comprar_jogos'] = False 
+rafael.permissoes['pode_comprar_jogos'] = False
 
 luu.mensagens.append(f"Sistema: A usuária '{maria.nome}' ({maria.idade} anos) solicitou aprovação como sua dependente.")
     
 jogo1.adicionar_pontuacao(luu.nome, 2100)
 jogo1.adicionar_pontuacao(rafael.nome, 1250)
-    
-print("\n    Demonstração de POLIMORFISMO na Compra de Jogos")
-print(f"Objetivo: '{luu.nome}' (adulta) e '{rafael.nome}' (infantil restrito) tentarão comprar o mesmo jogo.")
-print("Ambos chamarão o MESMO método: 'comprar_jogo', mas terão resultados DIFERENTES.\n")
-    
-print(f"-> Tentativa de compra por '{luu.nome}' (Adulto):")
+
 luu.comprar_jogo(jogo1)
-    
-print(f"\n-> Tentativa de compra por '{rafael.nome}' (Infantil com restrição):")
+
 rafael.comprar_jogo(jogo1)
     
 print("\n    Configuração inicial concluída!")
