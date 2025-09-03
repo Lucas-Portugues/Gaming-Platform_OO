@@ -178,7 +178,7 @@ class Plataforma:
         self.usuarios = {}
         self.jogos = {}
         #Admin padrão da plataforma
-        self.usuarios["admin"] = Admin("lucas", "POO@ic.ufal.br", "admin123")
+        self.usuarios["admin"] = Admin("lucas", "POO@ic.com", "admin123")
     
     def encontrar_usuario(self, nome_ou_email):
         for user in self.usuarios.values():
