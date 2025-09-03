@@ -473,7 +473,17 @@ jogo1.adicionar_pontuacao(rafael.nome, 1250)
 luu.comprar_jogo(jogo1)
 
 rafael.comprar_jogo(jogo1)
-    
+
+adulto_luu = plataforma_gaming.usuarios.get('luu')
+infantil_rafael = plataforma_gaming.usuarios.get('rafael')
+
+lista_de_usuarios = [adulto_luu, infantil_rafael]
+
+for usuario in lista_de_usuarios:
+    if usuario: 
+        tipo = usuario.obter_tipo_conta()
+        print(f"\nUsuário '{usuario.nome}' é do tipo: '{tipo}'")
+  
 print("\n    Configuração inicial concluída!")
     
 plataforma_gaming.executar()
