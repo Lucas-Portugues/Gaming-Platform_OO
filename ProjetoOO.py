@@ -149,8 +149,14 @@ class UsuarioInfantil(Usuario):
 
 class UsuarioAdulto(Usuario):
 
+
+    def __init__(self, nome, email, senha, idade):
+        super().__init__(nome, email, senha, idade)
+        self.dependentes = []
+
     def obter_tipo_conta(self):
         return "Adulto"
+    
     def definir_permissoes(self, dependente):
         print(f"\nConfigurando permissões para '{dependente.nome}':")
         perm_itens = input("Permitir que este usuário compre ITENS nos jogos? (s/n): ").lower()
